@@ -38,15 +38,15 @@ static func serialize(p_obj : Object) -> Dictionary:
 			TYPE_DICTIONARY: # Maps
 				var dict = {}
 				if content == TYPE_OBJECT: # Map of objects
-					for k in val:
+					for key in val:
 						if val_type != TYPE_OBJECT:
 							continue
-						dict[k] = serialize(val)
+						dict[key] = serialize(val)
 				else: # Map of simple types
-					for k in val:
+					for key in val:
 						if val_type != content:
 							continue
-						dict[k] = val
+						dict[key] = val
 			_:
 				out[k] = val
 	return out
@@ -84,7 +84,7 @@ static func deserialize(p_ns : GDScript, p_cls_name : String, p_dict : Dictionar
 				obj.set(pname, deserialize(p_ns, type, val))
 			elif type_cmp == TYPE_DICTIONARY:
 				var v = {}
-				for k in val:
+				for key in val:
 					if typeof(content) == TYPE_STRING:
 						v[k] = deserialize(p_ns, content, val[k])
 					elif content == TYPE_INT:
